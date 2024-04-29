@@ -23,14 +23,14 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::381492107876:role/IIC2173
+          role-to-assume: arn:aws:iam::381492107876:role/IIC2173-2
           aws-region: us-east-1
    
-      - name: Login to Amazon ECR Public
-        id: login-ecr-public
+      - name: Login to Amazon ECR
+        id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
         with:
-          registry-type: public
+          mask-password: 'false'
 
       - name: Build, tag, and push docker image to Amazon ECR Public
         env:
