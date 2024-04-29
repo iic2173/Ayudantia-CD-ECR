@@ -23,8 +23,8 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-region: us-east-2
-          role-to-assume: arn:aws:iam::381492107876:user/Emii_User
+          role-to-assume: arn:aws:iam::381492107876:role/IIC2173
+          aws-region: us-east-1
    
       - name: Login to Amazon ECR Public
         id: login-ecr-public
