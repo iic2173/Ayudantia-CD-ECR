@@ -35,20 +35,21 @@ jobs:
       - name: Get ECR Repository URI
         id: ecr-repo
         run: |
-          echo "::set-output name=uri::$(aws ecr-public describe-repositories --repository-name iic2173-api --query 'repositories[0].repositoryUri' --output text)"
-        
+          echo "::set-output name=uri::public.ecr.aws/v9b5f4l8/iic2173-api"
+          # Use the URI directly, assuming it's constant
+
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
-        # with:
-        #   mask-password: 'false'
+        with:
+          registry-type: public
 
-      - name: Build, tag, and push docker image to Amazon ECR
+      - name: Build, tag, and push docker image to Amazon ECR Public
         env:
-          REGISTRY: ${{ steps.ecr-repo.outputs.uri }}
+          REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
           REGISTRY_ALIAS: v9b5f4l8
           REPOSITORY: iic2173-api
-          IMAGE_TAG: latest
+          IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG ./api
+          docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
