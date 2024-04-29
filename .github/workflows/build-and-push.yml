@@ -32,22 +32,23 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY0}}
           aws-region: us-east-1
 
-      - name: Get ECR Repository URI
-        id: ecr-repo
-        run: |
-          echo "::set-output name=uri::public.ecr.aws/v9b5f4l8/iic2173-api"
-          # Use the URI directly, assuming it's constant
+      # - name: Get ECR Repository URI
+      #   id: ecr-repo
+      #   run: |
+      #     echo "::set-output name=uri::public.ecr.aws/v9b5f4l8/iic2173-api"
+      #     # Use the URI directly, assuming it's constant
 
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
         with:
           registry-type: public
+          mask-password: true
 
       - name: Build, tag, and push docker image to Amazon ECR Public
         env:
-          REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
-          REGISTRY_ALIAS: 381492107876
+          REGISTRY: ${{steps.login-ecr-public.outputs.registry}}
+          REGISTRY_ALIAS: v9b5f4l8
           REPOSITORY: iic2173-api
           IMAGE_TAG: latest
         run: |
