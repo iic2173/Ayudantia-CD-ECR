@@ -56,18 +56,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      # - name: Configure AWS Credentials
-      #   uses: aws-actions/configure-aws-credentials@v4
-      #   with:
-      #     aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID0}}
-      #     aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY0}}
-      #     aws-region: us-east-1
-
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::381492107876:role/IIC2173-CDRole
+          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID0}}
+          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY0}}
           aws-region: us-east-1
+
+      # - name: Configure AWS Credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     role-to-assume: arn:aws:iam::....
+      #     aws-region: us-east-1
 
       - name: Login to Amazon ECR
         id: login-ecr-public
