@@ -85,16 +85,6 @@ jobs:
         run: |
           aws s3 cp deploy.zip s3://iic2173/deploy.zip
       
-      # - name: Create CodeDeploy Deployment
-      # # Almacena primero en un secret el deploymentId
-      #   id: create-deployment-trigger
-      #   run: |
-      #     deploymentId=$(aws deploy create-deployment --application-name \
-      #     IIC2173-CD-Ayudantia --deployment-group-name IIC2173-Group --region us-east-2 \
-      #     --s3-location bucket=iic2173,key=deploy.zip,bundleType=zip \
-      #     --description "Automatic deployment from githubactions commit ${{github.sha}}" | jq -r '.deploymentId')
-      #     echo "DeploymentId=$deploymentId" >> $GITHUB_OUTPUT
-
       - name: Create CodeDeploy Deployment
         id: create-deployment-trigger
         run: |
