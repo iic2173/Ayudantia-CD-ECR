@@ -44,3 +44,52 @@ jobs:
           cd api
           docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+
+
+# Deploy a EC2
+
+  deploy-to-ec2:
+    runs-on: ubuntu-latest
+    # Tiene el requisito de que el job de antes funcione
+    needs: build-and-push
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      # - name: Configure AWS Credentials
+      #   uses: aws-actions/configure-aws-credentials@v4
+      #   with:
+      #     aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID0}}
+      #     aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY0}}
+      #     aws-region: us-east-1
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::381492107876:role/IIC2173-CDRole
+          aws-region: us-east-1
+
+      - name: Login to Amazon ECR
+        id: login-ecr-public
+        uses: aws-actions/amazon-ecr-login@v2
+        with:
+          registry-type: public
+          mask-password: "true"
+
+      - name: Zip artifact to deploy
+        run: |
+          zip -r deploy.zip scripts/ appspec.yml docker-compose.production.yml
+
+      - name: Copy Zip to S3
+        run: |
+          aws s3 cp deploy.zip s3://iic2173/deploy.zip
+      
+      - name: Create CodeDeploy Deployment
+        run: |
+          aws deploy create-deployment --application-name \
+          IIC2173-CD-Ayudantia --deployment-group-name IIC2173-Group --region us-east-2 \
+          --s3-location bucket=iic2173,key=deploy.zip,bundleType=zip \
+          --file-exists-behavior OVERWRITE
+
+
+      
