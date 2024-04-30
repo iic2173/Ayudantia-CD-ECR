@@ -88,7 +88,7 @@ jobs:
       # Almacena primero en un secret el deploymentId
         id: create-deployment-trigger
         run: |
-          deploymentId=$(aws deploy create-deployment\
+          deploymentId=$(\
           aws deploy create-deployment --application-name \
           IIC2173-CD-Ayudantia --deployment-group-name IIC2173-Group --region us-east-2 \
           --s3-location bucket=iic2173,key=deploy.zip,bundleType=zip \
@@ -100,6 +100,6 @@ jobs:
       #  aws deploy wait deployment-successful --deployment-id $deploymentId --region us-east-2
       # Espera que el deployment termine 
         run: |
-          aws deploy wait deployment-successful --deployment-id <deployment-id> --region us-east-2
+          aws deploy wait deployment-successful --deployment-id ${{steps.create-deployment-trigger.outputs.deploymentId}}
 
           
