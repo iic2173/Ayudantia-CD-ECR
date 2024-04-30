@@ -85,11 +85,20 @@ jobs:
           aws s3 cp deploy.zip s3://iic2173/deploy.zip
       
       - name: Create CodeDeploy Deployment
+      # Almacena primero en un secret el deploymentId
+        id: create-deployment-trigger
         run: |
+          deploymentId=$(aws deploy create-deployment\
           aws deploy create-deployment --application-name \
           IIC2173-CD-Ayudantia --deployment-group-name IIC2173-Group --region us-east-2 \
           --s3-location bucket=iic2173,key=deploy.zip,bundleType=zip \
-          --file-exists-behavior OVERWRITE
-
-
+          --file-exists-behavior OVERWRITE || jq -r '.deploymentId')
+          echo "DeploymentId=$deploymentId" >> $GITHUB_OUTPUT
       
+      - name: Wait for deployment to finish
+      #           deploymentId=$(cat $GITHUB_OUTPUT | grep DeploymentId | cut -d'=' -f2)
+      #  aws deploy wait deployment-successful --deployment-id $deploymentId --region us-east-2
+      # Espera que el deployment termine 
+        run: |
+          aws deploy wait deployment-successful --deployment-id ${{ steps.create-deployment-trigger.outputs.deploymentId }} --region us-east-2
+          
