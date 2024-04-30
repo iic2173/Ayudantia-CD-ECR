@@ -19,12 +19,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      # - name: Configure AWS Credentials
-      #   uses: aws-actions/configure-aws-credentials@v4
-      #   with:
-      #     role-to-assume: arn:aws:iam::381492107876:role/IIC2173
-      #     aws-region: us-east-1
       
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -32,12 +26,6 @@ jobs:
           aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID0}}
           aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY0}}
           aws-region: us-east-1
-
-      # - name: Get ECR Repository URI
-      #   id: ecr-repo
-      #   run: |
-      #     echo "::set-output name=uri::public.ecr.aws/v9b5f4l8/iic2173-api"
-      #     # Use the URI directly, assuming it's constant
 
       - name: Login to Amazon ECR
         id: login-ecr-public
