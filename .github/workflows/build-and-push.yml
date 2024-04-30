@@ -92,7 +92,7 @@ jobs:
           aws deploy create-deployment --application-name \
           IIC2173-CD-Ayudantia --deployment-group-name IIC2173-Group --region us-east-2 \
           --s3-location bucket=iic2173,key=deploy.zip,bundleType=zip \
-          --file-exists-behavior OVERWRITE || jq -r '.deploymentId')
+          --description "Automatic deployment from githubactions commit ${{github.sha}}" | jq -r '.deploymentId')
           echo "DeploymentId=$deploymentId" >> $GITHUB_OUTPUT
       
       - name: Wait for deployment to finish
