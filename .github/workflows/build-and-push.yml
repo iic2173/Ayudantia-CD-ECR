@@ -100,5 +100,6 @@ jobs:
       #  aws deploy wait deployment-successful --deployment-id $deploymentId --region us-east-2
       # Espera que el deployment termine 
         run: |
-          aws deploy wait deployment-successful --deployment-id ${{ steps.create-deployment-trigger.outputs.deploymentId }} --region us-east-2
+          aws deploy wait deployment-successful --deployment-id <deployment-id> --region us-east-2
+
           
