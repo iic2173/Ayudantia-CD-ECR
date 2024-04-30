@@ -33,11 +33,11 @@ jobs:
           aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY0}}
           aws-region: us-east-1
 
-      - name: Get ECR Repository URI
-        id: ecr-repo
-        run: |
-          echo "::set-output name=uri::public.ecr.aws/v9b5f4l8/iic2173-api"
-          # Use the URI directly, assuming it's constant
+      # - name: Get ECR Repository URI
+      #   id: ecr-repo
+      #   run: |
+      #     echo "::set-output name=uri::public.ecr.aws/v9b5f4l8/iic2173-api"
+      #     # Use the URI directly, assuming it's constant
 
       - name: Login to Amazon ECR
         id: login-ecr-public

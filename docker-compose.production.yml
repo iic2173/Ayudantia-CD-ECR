@@ -1,0 +1,8 @@
+version: '3'
+services:
+  api:
+    image: public.ecr.aws/v9b5f4l8/iic2173-api:latest
+    ports:
+      - 3000:3000
+    environment:
+      - PORT-3000
