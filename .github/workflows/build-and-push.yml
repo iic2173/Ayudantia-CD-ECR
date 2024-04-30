@@ -46,7 +46,7 @@ jobs:
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
 
 
-# Deploy a EC2
+# Deploy a EC2 instance
 
   deploy-to-ec2:
     runs-on: ubuntu-latest
