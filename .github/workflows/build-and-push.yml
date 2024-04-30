@@ -50,8 +50,9 @@ jobs:
 
   deploy-to-ec2:
     runs-on: ubuntu-latest
+    if: ${{always()}}
     # Tiene el requisito de que el job de antes funcione
-    needs: build-and-push
+    needs: [build-and-push]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
