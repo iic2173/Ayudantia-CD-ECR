@@ -12,5 +12,7 @@ https://github.com/aws-actions/configure-aws-credentials
 https://docs.aws.amazon.com/codedeploy/latest/userguide/getting-started-codedeploy.html
 https://docs.aws.amazon.com/codedeploy/latest/userguide/tutorials-on-premises-instance.html
 https://docs.aws.amazon.com/codedeploy/latest/userguide/security-iam.html
-Github actions optimizations:
+
+## Github actions optimizations:
 https://github.com/dorny/paths-filter
+https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#on
