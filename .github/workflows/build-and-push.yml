@@ -19,6 +19,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      # - name: Configure AWS Credentials
+      #   uses: aws-actions/configure-aws-credentials@v4
+      #   with:
+      #     role-to-assume: arn:aws:iam::381492107876:role/IIC2173-2
+      #     aws-region: us-east-1
       
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
