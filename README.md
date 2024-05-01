@@ -9,7 +9,6 @@ https://github.com/aws-actions/configure-aws-credentials
 
 
 ## CodeDeploy + Automatización Deploy
-https://docs.aws.amazon.com/codedeploy/latest/userguide/getting-started-codedeploy.html
 https://docs.aws.amazon.com/codedeploy/latest/userguide/tutorials-on-premises-instance.html
 https://docs.aws.amazon.com/codedeploy/latest/userguide/security-iam.html
 
